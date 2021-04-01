@@ -10,15 +10,13 @@ module.exports.displayMatchList = (req, res, next) => {
         if (err) {
             return console.error(err);
         } else {
-
-
-            res.render('match/list', { title: 'Matches', MatchList: matchList });
+            res.render('match/list', { title: 'Matches', MatchList: matchList, displayName: req.user ? req.user.displayName : ''  });
         }
     });
 }
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('match/add', { title: 'Add Match' })
+    res.render('match/add', { title: 'Add Match', displayName: req.user ? req.user.displayName : ''  })
 }
 
 module.exports.processAddPage = (req, res, next) => {
@@ -41,7 +39,6 @@ module.exports.processAddPage = (req, res, next) => {
     });
 
 }
-
 
 module.exports.displayEditPage = (req, res, next) => {
     let id = req.params.id;
@@ -83,10 +80,6 @@ module.exports.processEditPage = (req, res, next) => {
         }
     });
 }
-
-
-
-
 
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;

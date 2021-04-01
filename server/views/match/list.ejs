@@ -9,12 +9,17 @@
     <div class="jumbotron">
         <div class="offset-md-1 col-md-11">
             <h1><%= title %></h1>
-            <a href="/match-list/add" class="btn btn-primary" role="button">
-            <i class="fas fa-plus-circle"></i> Add a Match</a>
+
+            <% if(typeof displayName == 'string' && displayName) { %>
+                <a href="/match-list/add" class="btn btn-primary btn-lg btn-block" role="button">
+                <i class="fas fa-plus-circle"></i> Add a Match</a>
+            <% } %>
+
             <br>
             <table class="table table-bordered table-striped table-hover">
                 <!-- Header Row-->
                 <tr class="d-flex">
+                    <% if(typeof displayName == 'string' && displayName) { %>
                     <th class="text-center col-2">Match</th>
                     <th class="text-center col-3">Teams</th>
                     <th class="text-center col-2">Game</th>
@@ -22,12 +27,20 @@
                     <th class="text-center col-1">Price</th>
                     <th class="text-center col-1">Edit</th>
                     <th class="text-center col-1">Delete</th>
+                    <% } else { %>
+                        <th class="text-center col-2">Match</th>
+                        <th class="text-center col-3">Teams</th>
+                        <th class="text-center col-2">Game</th>
+                        <th class="text-center col-2">Time</th>
+                        <th class="text-center col-1">Price</th>
+                     <% } %>
                 </tr>
 
                 <!-- Repeatable Template Row -->
 
                 <% for(let count = 0; count < MatchList.length; count++) { %>
                     <tr class="d-flex">
+                        <% if(typeof displayName == 'string' && displayName) { %>
                         <td class="text-center col-2"><%= MatchList[count].match %></td>
                         <td class="text-center col-3"><%= MatchList[count].teams %></td>
                         <td class="text-center col-2"><%= MatchList[count].game %></td>
@@ -41,6 +54,13 @@
                             <a href="/match-list/delete/<%= MatchList[count]._id %>" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i> Delete</a>
                         </td>
+                        <% } else { %>
+                            <td class="text-center col-2"><%= MatchList[count].match %></td>
+                        <td class="text-center col-3"><%= MatchList[count].teams %></td>
+                        <td class="text-center col-2"><%= MatchList[count].game %></td>
+                        <td class="text-center col-2"><%= MatchList[count].time %></td>
+                        <td class="text-center col-1"><%= MatchList[count].price %></td>
+                        <% } %>
                     </tr>
                 <% } %>
             </table>
